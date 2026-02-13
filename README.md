@@ -18,11 +18,13 @@ Filament plugin that adds a **state diagram** (Mermaid flowchart) and **state hi
 composer require rielagroup/filament-spatie-states-diagram-history
 ```
 
-Publish config and migration:
+Publish config, migration, and optionally the Blade views (so you can customize them):
 
 ```bash
 php artisan vendor:publish --tag=filament-spatie-states-config
 php artisan vendor:publish --tag=filament-spatie-states-migrations
+# Optional: publish Blade views to resources/views/vendor/filament-spatie-states/
+php artisan vendor:publish --tag=filament-spatie-states-views
 ```
 
 Run migrations:

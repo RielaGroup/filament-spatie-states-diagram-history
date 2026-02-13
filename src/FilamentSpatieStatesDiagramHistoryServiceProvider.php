@@ -25,7 +25,15 @@ class FilamentSpatieStatesDiagramHistoryServiceProvider extends \Illuminate\Supp
             __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'filament-spatie-states-migrations');
 
+        $publishedViews = resource_path('views/vendor/filament-spatie-states');
+        if (is_dir($publishedViews)) {
+            $this->loadViewsFrom($publishedViews, 'filament-spatie-states');
+        }
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-spatie-states');
+
+        $this->publishes([
+            __DIR__.'/../resources/views' => $publishedViews,
+        ], 'filament-spatie-states-views');
 
         if (config('filament-spatie-states.register_listener', true)) {
             Event::listen(StateChanged::class, Listeners\StoreModelStateListener::class);
