@@ -43,28 +43,20 @@ class StoreModelStateListener
         if (is_callable($resolver)) {
             $id = $resolver($event);
             if ($id !== null && $id !== '') {
-                return $this->normalizeUserId($id);
+                return $id;
             }
         }
 
         $id = Auth::id();
         if ($id !== null && $id !== '') {
-            return $this->normalizeUserId($id);
+            return $id;
         }
 
         $model = $event->model;
         if (isset($model->user_id) && $model->user_id !== null && $model->user_id !== '') {
-            return $this->normalizeUserId($model->user_id);
+            return $model->user_id;
         }
 
         return null;
-    }
-
-    /**
-     * Return user ID as int for numeric IDs or as string for UUIDs.
-     */
-    protected function normalizeUserId(int|string $id): int|string
-    {
-        return is_numeric($id) ? (int) $id : $id;
     }
 }
