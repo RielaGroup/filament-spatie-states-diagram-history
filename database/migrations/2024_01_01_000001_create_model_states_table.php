@@ -12,7 +12,9 @@ return new class extends Migration
 
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            config('filament-spatie-states.user_id_type', 'int') === 'uuid'
+                ? $table->foreignUuid('user_id')->nullable()
+                : $table->foreignId('user_id')->nullable();
             $table->string('state_from');
             $table->string('state_to');
             $table->text('comment')->nullable();
