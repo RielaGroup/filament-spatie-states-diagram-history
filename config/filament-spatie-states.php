@@ -33,12 +33,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | User ID column type (users table primary key type)
+    |--------------------------------------------------------------------------
+    | 'int'  - unsigned bigint, for traditional integer user IDs
+    | 'uuid' - char(36), for UUID/GUID user primary keys
+    */
+    'user_id_type' => 'int',
+
+    /*
+    |--------------------------------------------------------------------------
     | User ID resolver for state history (when no authenticated user)
     |--------------------------------------------------------------------------
-    | Callable signature: (StateChanged $event): ?int
-    | Return null to leave user_id null.
+    | Callable signature: (StateChanged $event): ?int|?string
+    | Return int (user_id_type=int) or string UUID (user_id_type=uuid). Null to leave user_id null.
     */
     'user_id_resolver' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | System final states (no user_id recorded)
+    |--------------------------------------------------------------------------
+    | When the transition's final state is in this list, user_id is stored as null.
+    | Array of state class names, e.g. [\App\States\Order\Archived::class].
+    */
+    'system_final_states' => [],
 
     /*
     |--------------------------------------------------------------------------

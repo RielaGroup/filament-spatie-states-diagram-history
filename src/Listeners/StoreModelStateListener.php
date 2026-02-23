@@ -32,18 +32,31 @@ class StoreModelStateListener
         ]);
     }
 
-    protected function resolveUserId(StateChanged $event): ?int
+    protected function resolveUserId(StateChanged $event): int|string|null
     {
+        $systemFinalStates = config('filament-spatie-states.system_final_states', []);
+        if (is_array($systemFinalStates) && in_array(get_class($event->finalState), $systemFinalStates, true)) {
+            return null;
+        }
+
         $resolver = config('filament-spatie-states.user_id_resolver');
         if (is_callable($resolver)) {
             $id = $resolver($event);
-            if ($id !== null) {
-                return (int) $id;
+            if ($id !== null && $id !== '') {
+                return $id;
             }
         }
 
         $id = Auth::id();
+        if ($id !== null && $id !== '') {
+            return $id;
+        }
 
-        return $id !== null ? (int) $id : null;
+        $model = $event->model;
+        if (isset($model->user_id) && $model->user_id !== null && $model->user_id !== '') {
+            return $model->user_id;
+        }
+
+        return null;
     }
 }
