@@ -2,12 +2,15 @@
 
 namespace RielaGroup\FilamentSpatieStatesDiagramHistory\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use RielaGroup\FilamentSpatieStatesDiagramHistory\Support\StateLabelResolver;
 
 class ModelState extends Model
 {
+    use HasUuids;
+
     protected $fillable = [
         'user_id',
         'state_from',
