@@ -8,9 +8,11 @@ Filament plugin that adds a **state diagram** (Mermaid flowchart) and **state hi
 ## Requirements
 
 - PHP 8.2+
-- Laravel 10 or 11
-- Filament 3
+- Laravel 10, 11, or 12 (within the versions supported by your chosen Filament release)
+- Filament 4 or 5 (`filament/filament` ^4.0 or ^5.0). Filament 5 needs Laravel 11.28+, Livewire 4, and Tailwind 4 in the host app—see the [Filament v5 upgrade guide](https://filamentphp.com/docs/5.x/upgrade-guide).
 - `spatie/laravel-model-states` ^2.0
+
+Filament 3 is no longer declared compatible: this package targets the Filament v4+ schema APIs (`Filament\Schemas\Schema` on relation managers). Pin an older package release if you still run Filament 3.
 
 ## Installation
 

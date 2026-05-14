@@ -17,7 +17,9 @@ class StateHistoryRelationManager extends RelationManager
 
     public static function getBadge($ownerRecord, string $pageClass): ?string
     {
-        return $ownerRecord->stateHistory->count();
+        $count = $ownerRecord->stateHistory->count();
+
+        return $count > 0 ? (string) $count : null;
     }
 
     public function form(Schema $schema): Schema
